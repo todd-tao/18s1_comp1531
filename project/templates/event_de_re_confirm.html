@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block body %}
+
+
+<h1>{{info}} information</h1>
+
+{{event.name}} is successfuly {{info}}.
+{% if fee %}
+<br>
+The registration fee is ${{fee}}.
+{% endif %}
+{% endblock %}

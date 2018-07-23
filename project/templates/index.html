@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<form method="post">
+
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .first {
+            width: 98%;
+            float: left;
+            height: 50px;
+        }
+        .second {   
+            width: 45%;
+            float:left;
+            height: 650px;
+            background-color: #F0F0F0;
+            border-radius:15px 0 0 15px;
+            border-left: 2px solid #000000;
+            border-top: 2px solid #000000;
+            border-bottom: 2px solid #000000;
+            margin-top:80px;
+            margin-left: 65px;
+            border-right: 0.5px solid #FFFFFF;
+        }
+        .third {
+            width: 45%;
+            float:left;
+            height: 650px;
+            background-color: #F0F0F0;
+            border-radius:0 15px 15px 0;
+            border-right: 2px solid #000000;
+            border-top: 2px solid #000000;
+            border-bottom: 2px solid #000000;
+            border-left: 0.5px solid #FFFFFF;
+            margin-top:80px;
+        }
+    </style>
+</head>
+<body>
+   <br>
+    <div class="first" style ="font-family:Futura;font-size: 65px;text-shadow: 5px 5px 5px #000000, 0px 0px 2px #000000, 2px 2px 3px #3a3a3a;text-align:center;color:#E5E5E5">EVENTS</div>
+    <div class="second" style ="font-family:Comic Sans MS;color: #5F6A6A; font-size:30px;text-align: center">COURSE: 
+        <div style="text-align: left; font-size: 15px; font-family: normal">
+            {% for event in events_c %}
+            <li>
+                <a href="{{url_for('event', eid= event.get_id())}}"> {{event.name}} </a> ---------------- {{event.max-event.get_num()}}
+            </li>
+            {% endfor %}
+            {% if not events_c%}
+                No event
+            {% endif %}
+        </div>
+    </div>
+    <div class="third" style ="font-family:Comic Sans MS;color: #5F6A6A;font-size:30px;text-align: center">SEMINARS:
+        <div style="text-align: left; font-size: 15px; font-family: normal">
+            {% for event in events_s %}
+            <li>
+                <a href="{{url_for('event', eid= event.get_id())}}"> {{event.name}} </a> ---------------- {{event.max-event.get_num()}}
+                <ol>
+                {% for session in event.get_sessions() %}
+                
+                    <li>
+                        {{session.name}} -------- {{session.capacity-session.num}}
+                    </li>
+                
+                {% endfor %}
+                </ol>
+            </li>
+            {% endfor %}
+            {% if not events_s%}
+                No event
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
+
+{% endblock %}

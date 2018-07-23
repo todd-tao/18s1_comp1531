@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block body %}
+<form method="post">
+	<meta charset="UTF-8">
+    <title></title>
+    <style>
+    	.first {
+    		width: 98%;
+    		float:left;
+    		height: 50px;
+            border-bottom: 1px solid #000000;
+    	}
+
+        .second {
+            width: 98%;
+            float:left;
+            height: 250px;
+            border-bottom: 1px solid #000000;
+        }
+
+        .third {
+        	width: 98%;
+        	float: left;
+        	height: 50px;
+        	border-bottom: 1px solid #000000;
+        }
+        .fourth {   
+            width: 98%;
+            float:left;
+            height: 50px;
+            border-bottom: 1px solid #000000;
+        }
+    </style>
+</head>
+<body>
+    <div class="first" style ="font-family:Trebuchet MS;font-size:25px;text-align:left;color: #000000;">
+        {{session.name}} 
+    </div>
+        </div>
+    <div class="third">Speaker name:
+        <div>
+            -- {{session.speaker}}
+        </div>
+    </div>
+        <div class="third">Start time:
+        <div>
+            {{session.start_time}}
+        </div>
+    </div>
+    <div class="third">end_time:
+        <div>
+            {{session.end_time}}
+        </div>
+    </div>
+<!--     <div class="second">Description:
+        <div>
+            {{session.description}}
+        </div>
+    </div> -->
+    <div class="third">Location
+        <div>
+            {{session.location}}
+        </div>
+    </div>
+    <div class="fourth" style ="font-size:20px;text-align: left;">Capacity:
+        <div>
+            {{session.num}}/{{session.capacity}}
+        </div>
+    </div>
+    {% if session.speaker == 'empty' %}
+    <div>
+    <button name = "be_speaker" type="submit" class="btn" style="background-color: #000000;width: 100px;height: 25px;color: #FFFFFF"> Be Speaker </button>
+    </div>
+    {% endif %}
+</body>
+{% if current_user.email == session.speaker.email %}
+<div class="second">Attendee:
+        <div style="text-align: left; font-size: 15px; font-family: normal">
+        {% for attendee in session.get_attendee() %}
+        <li>
+            {{attendee}}
+        </li>
+        {% if not session.get_attendee %}
+            No attendee
+        {% endif %}
+    {% endfor %}
+    </div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<form method="post">
+	<meta charset="UTF-8">
+    <title></title>
+    <style>
+    	.first {
+    		width: 98%;
+    		float:left;
+    		height: 50px;
+            border-bottom: 1px solid #000000;
+    	}
+
+        .second {
+            width: 98%;
+            float:left;
+            height: 250px;
+            border-bottom: 1px solid #000000;
+        }
+
+        .third {
+        	width: 98%;
+        	float: left;
+        	height: 50px;
+        	border-bottom: 1px solid #000000;
+        }
+        .fourth {   
+            width: 98%;
+            float:left;
+            height: 50px;
+            border-bottom: 1px solid #000000;
+        }
+    </style>
+</head>
+<body>
+    {% if error %}
+    <div style="font-size: 25px; color: red"> {{error}}</div>
+    {% endif %}
+    <div class="first" style ="font-family:Trebuchet MS;font-size:25px;text-align:left;color: #000000;">
+        {{event.name}}
+    </div>
+    <div class="third">Convenor name:
+        <div>
+            -- {{event.convenor.username}}
+        </div>
+    </div>
+        <div class="third">Start time:
+        <div>
+            {{event.start_time}}
+        </div>
+    </div>
+    <div class="third">end_time:
+        <div>
+            {{event.end_time}}
+        </div>
+    </div>
+    <div class="second">Description:
+        <div>
+            {{event.description}}
+        </div>
+    </div>
+    <div class="third">Location
+        <div>
+            {{event.location}}
+        </div>
+    </div>
+    <div class="fourth" style ="font-size:20px;text-align: left;">Capacity:
+        <div>
+            {{event.get_num()}}/{{event.max}}
+        </div>
+    </div>
+    {% if fee %}
+    <div class="fourth" style ="font-size:20px;text-align: left;">Now register fee is :
+        <div>
+            ${{fee}}
+        </div>
+    </div>
+    {% endif %}
+<br>
+{% if not event.is_course() %}
+You have to choose at least one session below to regiser this seminar:
+
+{% for session in event.get_sessions() %}
+<li>
+    <a href="{{url_for('session',eid= event.get_id(), sid = session.get_id())}}"> {{session}}</a>{% if session.num < session.capacity %} <input type="checkbox" name="{{session.name}}"/> {% endif %}
+</li>
+{% endfor %}
+
+<br> 
+<div>
+    <button name = "add_session" type="submit" class="btn" style="background-color: #000000;width: 70px;height: 40px;color: #FFFFFF"> Add session </button>
+</div>
+{% endif %}
+{% if confirmation %}
+
+<div>
+    Session name: <input type="text" name="name">
+</div>
+<div>
+    start_time:<input type="text" name="start_time">
+</div>
+<div>
+    End_time: <input type="text" name="end_time">
+</div>
+<div>
+    Location: <input type="text" name="location">
+</div>
+<div>
+    Capacity: <input type="text" name ="capacity">
+</div>
+
+<button name = "submit" type="submit" class="btn" style="background-color: #000000;width: 70px;height: 25px;color: #FFFFFF"> Submit </button>
+{% endif %}
+<div>
+<button name = "register" type="submit" class="btn" style="background-color: #000000;width: 70px;height: 25px;color: #FFFFFF" > register </button>
+<br>
+</div>
+<button name = "deregister" type="submit" class="btn" style="background-color: #000000;width: 70px;height: 25px;color: #FFFFFF"> deregister </button>
+
+</body>
+<br>
+<button name = "cancel" type="submit" class="btn" style="background-color: #000000;width: 70px;height: 25px;color: #FFFFFF"> cancel </button>
+
+</body>
+</html>
+
+
+
+
+{% if current_user.email == event.convenor.email %}
+<div class="second">Attendee:
+        <div style="text-align: left; font-size: 15px; font-family: normal">
+        {% for attendee in event.get_attendee() %}
+        <li>
+            {{attendee}}
+        </li>
+        {% if not event.get_attendee %}
+            No event
+        {% endif %}
+    {% endfor %}
+    </div>
+{% endif %}
+
+{% endblock %}

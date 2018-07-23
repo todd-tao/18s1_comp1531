@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block body %}
+{% if user.get_event_closed() %}
+<div>
+	The closed event:
+	<div>
+		{% for event in user.get_event_closed() %}
+		<li>
+    		{{event.name}}
+        </li>
+        {% endfor %}
+	</div>
+</div>
+{% endif %}
+<div>
+	Current and past registered events:
+	<div style="text-align: left; font-size: 15px; font-family: normal">
+		{% for event in user.get_event_registered() %}
+		<li>
+    		<a href="{{url_for('event', eid= event.get_id())}}"> {{event.name}} </a>
+        </li>
+        {% if not user.get_event_registered()%}
+       		No event
+        {% endif %}
+		{% endfor %}
+</div>
+
+<br>
+{% if user.what_type() =='Staff' %}
+<div>
+	Current and past posted events:
+	<div style="text-align: left; font-size: 15px; font-family: normal">
+		{% for event in user.get_event_posted() %}
+		<li>
+    		<a href="{{url_for('event', eid= event.get_id())}}"> {{event.name}} </a>
+        </li>
+        {% if not user.get_event_posted() %}
+       		No event
+        {% endif %}
+	{% endfor %}
+</div>
+<br>
+	Cancelled events:
+	<div style="text-align: left; font-size: 15px; font-family: normal">
+			{% for event in user.get_event_cancelled() %}
+			<li>
+	    		<a href="{{url_for('event', eid= event.get_id())}}"> {{event.name}} </a>
+	        </li>
+	        {% if not user.get_event_cancelled() %}
+	       		No event
+	        {% endif %}
+		{% endfor %}
+	</div>
+{% endif %}
+
+
+{% endblock %}

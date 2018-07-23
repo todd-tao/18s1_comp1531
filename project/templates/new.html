@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<h1> Creating a new event</h1>
+{% if message %}
+<div>Warning: {{message}}</div>
+{% endif %}
+<form method="POST">
+	<div>
+    	Name: <input type="text" name="name">
+    </div>
+    <div>
+        Early_time(fee discount): <input type="text" name="early_time">
+    </div>
+    <div>
+    	Start_time: <input type="text" name="start_time">
+    </div>
+    <div>
+        End_time: <input type="text" name="end_time">
+    </div>
+    <div>
+    	Max_num: <input type="text" name="max_numbers">
+    </div>
+    <div>
+        Fee($): <input type="text" name="fee">
+    </div>
+    <div>
+    	Location: <input type="text" name="location">
+    </div>
+    <div>
+    	Description:
+    </div>
+    <div>
+    	<textarea rows='10' clos='30' name = "description">
+    	</textarea> 
+    </div>
+    <div>
+    	<input type="radio" name="type" value="Course" checked> Course<br>
+    	<input type="radio" name="type" value="Seminar" > Seminar<br>
+    </div> <br>
+    	<button>Submit</button>
+    </div>
+</form>
+
+{% endblock %}

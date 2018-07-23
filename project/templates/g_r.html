@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block body %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<h1 style ="font-family:Trebuchet MS;text-align:center">Guest register</h1>
+<div style ="font-family:Trebuchet MS;text-align:center; color:#CE0000 ">
+	{{message}}
+</div>
+<br>
+<form method="post">
+<div class="div_1" style="margin:auto; width:200px; height: 300px">
+	<input type="text" name="email"  placeholder="Email address" style="width: 200px; height: 25px">
+<input type="text" name="username" placeholder="Username" style="width: 200px; height: 25px">
+<input type="password" name="password" placeholder="Password" style="width: 200px; height: 25px">
+<br><br>
+ <button name ="submit" type="submit" class="btn" style="background-color: #000000;width: 75px;height: 25px;color: #FFFFFF;"> Submit! </button>
+
+</form> 
+
+
+{% endblock %}
